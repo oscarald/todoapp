@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 
 function Form({addToDo}) {
     const [input, setInput] = useState("")
+    const [condition, setCondition] = useState(false)
     const handleInput = (e) => {
         setInput(e.target.value)
     }
@@ -9,6 +10,9 @@ function Form({addToDo}) {
         e.preventDefault()
         if(input!==""){
             addToDo(input)
+            setCondition(false)
+        }else if(input === ""){
+            setCondition(true)
         }
         setInput("")
 
@@ -22,6 +26,7 @@ function Form({addToDo}) {
                     type="text"
                     onChange={handleInput}
                     value={input}
+                    placeholder="Escriba una tarea..."
                     className='bg-slate-200 border-solid border-2 border-indigo-400 p-1 rounded-md' 
                 />
                 <button
@@ -29,7 +34,9 @@ function Form({addToDo}) {
                 >Crear Tarea
                 </button>
             </form>
+            
         </div>
+        {condition ? <p className='text-center'>Debe llenar una tarea</p> : <p className='inline-block'>  </p>}
     </div>
   )
 }
